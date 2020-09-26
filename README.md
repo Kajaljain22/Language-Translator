@@ -1,4 +1,4 @@
-# Language-Translator
+# Language-Translator :earth_asia:
 A python app that translates your text into any desired language, detects the language of your text and also suggests possible mistakes in your text.
 
 1. Fork the project.
