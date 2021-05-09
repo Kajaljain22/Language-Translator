@@ -1,5 +1,6 @@
 # Python app to translate any text into 100+ Languages
 #google trans is a google API for translating text between languages
+from google_trans_new import google_translator
 from googletrans import Translator, LANGUAGES
 
 # # LANGUAGES is a dictionary of len 106
@@ -10,30 +11,15 @@ def show_languages():
     for language in LANGUAGES:
         print(language," " * (8 - len(language)),LANGUAGES[language])
 
-def find_errors():
-    text = input("Let's have a look at your text.. ")
-    while(text.isspace()):
-        text = input("Invalid input received. Try again! ")
-
-    tranlated_text = Translator().translate(text)
-    print()
-    l = tranlated_text.extra_data['possible-mistakes']
-    if(l == None):
-        print("No errors")
-        return
-    print("Have a look at possible errors..")
-    for i in range(len(l)):
-        print(i," = ",l[i])
-
 def detect_language():
     text = input("Let's have a look at your text.. ")
     while(text.isspace()):
         text = input("Invalid input received. Try again! ")
     
     print("Yay!! Language detected")
-    res = Translator().detect(text)
-    print(LANGUAGES[res.lang])
-    print("Interpreter is ",res.confidence * 100,"percent confident!")
+    res = translator.detect(text)
+    print(res[1])
+    # print("Interpreter is ",res.confidence * 100,"percent confident!")
 
 def translate():
     print("Please choose what you want to do")
@@ -62,9 +48,9 @@ def translate_to_all():
         text = input("Invalid input received. Try again! ")
 
     for language in LANGUAGES:
-        tranlated_text = Translator().translate(text, dest = language)
+        tranlated_text = translator.translate(text, lang_tgt = language)
         print("Translation in",LANGUAGES[language])
-        print(tranlated_text.text)
+        print(tranlated_text)
         print()
 
 def translate_to_language():
@@ -80,10 +66,10 @@ def translate_to_language():
         while(dest_lang not in LANGUAGES):
             dest_lang = input("Invalid code. Try Again!! ")
 
-        tranlated_text = Translator().translate(text, dest = dest_lang) 
+        tranlated_text = translator.translate(text, lang_tgt = dest_lang) 
         print()
         print("This is how we say it in",LANGUAGES[dest_lang])
-        print(tranlated_text.text)
+        print(tranlated_text)
 
 print()
 print("*"*50,"LANGUAGE TRANSLATOR" ,"*"*50)
@@ -96,14 +82,14 @@ while(not(name.isalpha())):
 print()
 print("Hey",name,"!!")
 session_on = True
+translator = google_translator()
 while(session_on):
     print("Please choose what you want to do")
     print()
     print("Press 1 to display the list of languages")
     print("Press 2 for translating your text")
     print("Press 3 for detecting the language of your text")
-    print("Press 4 for finding possible errors in your text")
-    print("Press 5 to quit")
+    print("Press 4 to quit")
     print()
 
     choice = 0
@@ -120,8 +106,6 @@ while(session_on):
     elif(choice == 3):
         detect_language()
     elif(choice == 4):
-        find_errors()
-    elif(choice == 5):
         print("Bye",name)
         print("Hope to meet again!")
         session_on = False
