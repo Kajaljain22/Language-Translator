@@ -20,6 +20,7 @@ Googletrans is a free and unlimited python library that implemented Google Trans
 To install, either use things like pip with the package “googletrans” or download the package and put the “googletrans” directory into your python path.
 ```
 pip install googletrans
+pip install google_trans_new
 ```
 
 For more details, refer to [API Documentation](https://py-googletrans.readthedocs.io/en/latest/) :book:
